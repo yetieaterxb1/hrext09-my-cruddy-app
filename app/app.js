@@ -9,12 +9,12 @@
 
 */
 
-//newBeer function
-//renderBeerList
+
+
 //updateBeer
 //getBeer
-//deleteBeer
 
+//newBeer function
 var Beer = function(name, brewery, rating){
   this.db = localStorage.beers
   this.beer = {
@@ -23,10 +23,31 @@ var Beer = function(name, brewery, rating){
     rating: rating 
   }
   this.save = function(){
-    db.append(this.beer)
+    this.db.append(this.beer)
   }
+  this.delete = function(){
+    for(let i in this.db){
+      if(this.db[i].beer.name == this.beer.name){
+        this.db[i] = null
+      }
+    }
+  }
+}
+//renderBeerList
 var renderBeerList = function(brewery){
-  
+  localStorage.beers.forEach(function(beer){
+    if (beer.beer.brewery === brewery){
+      return beer;
+    }
+  })
+}
+//deleteBeer
+var deleteBeer = function(beer){
+  localStorage.beers.forEach(function(beer){
+    if (beer.beer.name === beer){
+      beer.delete;
+    }
+  })
 }
 
 //localStorage interaction function
