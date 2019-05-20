@@ -9,6 +9,26 @@
 
 */
 
+//newBeer function
+//renderBeerList
+//updateBeer
+//getBeer
+//deleteBeer
+
+var Beer = function(name, brewery, rating){
+  this.db = localStorage.beers
+  this.beer = {
+    name: name,
+    brewery: brewery,
+    rating: rating 
+  }
+  this.save = function(){
+    db.append(this.beer)
+  }
+var renderBeerList = function(brewery){
+  
+}
+
 //localStorage interaction function
 //get item
 var getItem = function(key) {
