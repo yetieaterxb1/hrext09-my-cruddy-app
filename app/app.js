@@ -8,6 +8,99 @@
 - [ ] UI/UX considerations (how are we going to use this)
 
 */
+
+function seedDataBase(dbkey, seed) {
+  db = getDataBase(dbkey)
+  if(db === null || db.length === 0){
+    db = seed
+    updateDataBase('beers', db)
+    return true
+   }else{
+    return false
+   }
+}
+
+function getDataBase(dbkey){
+  return JSON.parse(localStorage.getItem(dbkey))
+}
+
+function clearDataBase(dbkey){
+  localStorage.removeItem(dbkey)
+}
+
+function updateDataBase(dbkey, db){ 
+  localStorage.setItem(dbkey,JSON.stringify(db))
+}
+
+function sortDataBase(by, order, array){
+  if(by === 'rating'){
+    array.sort(function(a,b){
+      if(order === 0){
+        // Descending
+        return b[by]-a[by]
+      }else{
+        // Ascending
+        return a[by] - b[by]
+      }
+    })
+  }else if(by === 'brewery' || by === 'name'){
+    array.sort(function(a,b){
+      a[by] = a[by].toLower()
+      b[by] = b[by].toLower()
+      // Ascending
+      if(a[by] < b[by]) { return -1 }
+      // Descending
+      if(a[by] > b[by]) { return 1 }
+      return 0
+    })
+  }
+  return array; 
+}
+
+
+var deleteBeer = function(name){
+  var db = getDataBase('beers')
+  var filtered = db.filter(function(el) { return el.name !== name }); 
+  updateDataBase('beers', filtered)      
+}
+
+var getBeer = function(name){
+  var db = getDataBase(name)
+  for (let i in db){
+    if(db[i].name === name){
+      return db[i];
+    }
+  }
+}
+
+var addBeer = function(name,brewery,rating){
+  var y = getBeer(name)
+  var x = {name: name, brewery: brewery, rating: rating};
+  var beers = getDataBase('beers')
+  beers.push(x);
+  updateDataBase('beers', beers)
+}
+
+var updateBeer = function(name,brewery,rating){
+  console.log('update', name, brewery, rating)
+  deleteBeer(name)
+  var x = {name: name, brewery: brewery, rating: rating};
+  var beers = getDataBase('beers')
+  beers.push(x);
+  updateDataBase('beers', beers)
+}
+
+var filterBrewery = function(brewery){
+  var db = getDataBase('beers')
+  var filtered = db.filter(function(el) { return el.brewery = brewery; }); 
+  return filtered 
+}
+
+var filterBeers = function(name){
+  var db = getDataBase('beers')
+  var filtered = db.filter(function(el) { return el.rating = rating; }); 
+  return filtered 
+}
 //localStorage interaction function
 //get item
 var getItem = function(key) {
@@ -76,13 +169,12 @@ var renderBeerList = function(brewery){
 var getDataBase = function(dbkey){
   return JSON.parse(localStorage.getItem(dbkey))
 }
-console.log(getDataBase('beers'));
+
 
 var updateDatabase = function(dbkey, db){ 
   localStorage.setItem(dbkey,JSON.stringify(db))
 }
-updateDatabase('beers', [{name: 'coors', brewery: 'Coors', rating: 4}])
-console.log(getDataBase('beers'));
+
 
 //deleteBeer
 var deleteBeer = function(name){
@@ -130,22 +222,17 @@ var filterBeers = function(name){
   var filtered = y.filter(function(el) { return el.rating = rating; }); 
   return filtered 
 }
-updateBeer('coors', 'Coors', 3)
-console.log(getDataBase('beers'));
-addBeer('MilkStout', 'LeftHand', 4)
-console.log(getDataBase('beers'));
-addBeer('MilkStout', 'LeftHand', 3)
-addBeer('MilkStout', 'LeftHand', 2)
-addBeer('MilkStout', 'LeftHand', 1)
-addBeer('MilkStout', 'LeftHand', 2)
-console.log(sorter(getDataBase('beers')))
+// updateBeer('coors', 'Coors', 3)
+// console.log(getDataBase('beers'));
+// addBeer('MilkStout', 'LeftHand', 4)
+// console.log(getDataBase('beers'));
+// addBeer('MilkStout', 'LeftHand', 3)
+// addBeer('MilkStout', 'LeftHand', 2)
+// addBeer('MilkStout', 'LeftHand', 1)
+// addBeer('MilkStout', 'LeftHand', 2)
+// console.log(sorter(getDataBase('beers')))
 
 
 
 
-///////////////////////////////////////////
-//event handlers for the buttons and ... possibly the inputboxes
-  //preventdefault on button clicks
-$(document).ready(function() {
-  
-});
+
