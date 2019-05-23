@@ -23,7 +23,7 @@ $(document).ready(function(){
         $('<td>').attr('class', 'name-cell').text(beer.name),
         $('<td>').attr('class', 'brewery-cell').text(beer.brewery),
         $('<td>').attr('class', 'rating-cell').text(beer.rating),
-       
+        $('<td>').attr('class', 'rating-cell’).html($stars)
       ]
       container.append(
         $('<tr></tr>')
