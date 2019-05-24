@@ -73,7 +73,7 @@ body { background: #000; color: #fff; position: relative;}
 
 
 body{
-  background-color: black;
+  background-color: black !important;
 }
 /* #header-container{
 
@@ -177,4 +177,7 @@ body{
 }
 .form-control{
   justify-self: right;
+}
+.checked{
+  color: #dc4987;
 }

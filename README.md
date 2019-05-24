@@ -43,3 +43,30 @@ Create Read Update and Delete framework using JS
 
  ### Advanced Reqs
 - [ ] Item that I added goes here...
+
+## Notes
+- Structer
+    - new script in app folder 
+        - seed data base 
+        - put beers into local storage 
+    - Make more methods in app.js (add beer, add brewery, add user,)
+        - create 3 scripts 
+            - contains all methods to interact with these databases 
+    - Beer list (all name)
+    - Brewery list (all name)
+    - Beer
+        - Object
+            - Beer name
+            - Brewery name
+            - Rating
+    - Brewery
+        - Object (contains beer objects)
+            - Name
+            - List of beer
+            - average rating
+    - User 
+        - Object
+            - User name  
+            - Picture 
+            - Bio
+            - City

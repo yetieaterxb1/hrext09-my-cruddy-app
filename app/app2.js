@@ -20,24 +20,47 @@ $(document).ready(function(){
 })
 
 
-
+  function makeStars(rating){
+     var container = $('<span class= "starRating"></span>').click(function(){
+     $(this).children('.checked').length
+    })
+    for(let i = 1; i<=5; i++){
+      var star = $('<span class="fa fa-star">').attr('star',i)
+      // star.mouseenter(function(){
+      //   var position = $(this).attr('star')
+      //   var stars = $(this).parent().find('.fa-star')
+      //   console.log(stars)
+      //   stars.forEach(function(star1){
+      //     star1.addClass('checked')
+      //   })
+      // })
+      // star.mouseout()
+      if (i <= rating){
+        star.addClass('checked')
+      }
+      container.append(star)
+    }
+    return container
+  }
+  // <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
 
   function renderBeers(container, beers){
     container.empty()
     beers.forEach(function(beer){
+      var hiddenNumber = $('<span>'+ beer.rating + '</span>').css('visibility', 'hidden')
       var deleteButton = $('<button> &#215; </button>').attr('class', 'deleteBeerButton').click(handleDeleteBeerButton)
       var cells = [
         $('<td>').attr('class', 'name-cell').text(beer.name),
         $('<td>').attr('class', 'brewery-cell').text(beer.brewery),
-        $('<td>').attr('class', 'rating-cell').text(beer.rating),
-
-
+        $('<td>').attr('class', 'rating-cell').html([hiddenNumber ,makeStars(beer.rating)]),
+        $('<td>').attr('class', 'delete-cell').html(deleteButton)
       ]
       container.append(
         $('<tr></tr>')
           .attr('id', beer.name + beer.brewery)
           .append(cells)
           .click(handleUpdateBeer)
+
       )
     })
   }
@@ -69,28 +92,23 @@ $(document).ready(function(){
     deleteBeer(beerName)
     renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
   }
-
   function handleUpdateBeer(event){
     var beer = $(this).children('td.name-cell').text()
     var brewery = $(this).children('td.brewery-cell').text()
     var rating = $(this).children('td.rating-cell').text()
     var modalClone = $('#exampleModal').clone()
+    modalClone.find('.modal-title').text('Edit rating')
     modalClone.find('#nameInput').remove()
     modalClone.find('#breweryInput').remove()
     modalClone.modal()
     modalClone
-      .find('#submitButton')
-      .click(function(event){
-        var ratingEdit = modalClone.find('#ratingInput').val()
-        updateBeer(beer, brewery, ratingEdit)
-        renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
-        console.log(this)
-      })
-    modalClone
-      .find('#deleteBeerButton')
-      .click(function(event){
-        deleteBeer(beer)
-        renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
-     })
+      .find('#submitButton')
+      .click(function(event){
+        var ratingEdit = modalClone.find('#ratingInput').val()
+        updateBeer(beer, brewery, ratingEdit)
+        renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
+        console.log(this)
+      })
     modalClone.keypress(handleEnterKey)
-}
+  }
+
