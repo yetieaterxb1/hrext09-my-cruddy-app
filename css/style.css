@@ -2,35 +2,179 @@
   input boxes
   buttons
 */
-body{
-  background-color: #E6ECF0
+@import url(https://fonts.googleapis.com/css?family=Mr+Dafoe);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:900);
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+@import url(https://fonts.googleapis.com/css?family=Candal);
+
+@import url(https://fonts.googleapis.com/css?family=Permanent+Marker);
+
+@import url(https://fonts.googleapis.com/css?family=Monoton);
+
+
+body { background: #000; color: #fff; position: relative;}
+
+.chrome {
+  position: relative;
+  background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 4px #f5f5f5;
+  font-size: 200px;
+  font-family: 'Titillium Web', sans-serif;
+  font-style: italic;
+  margin: 0;
+  line-height: 1;
 }
-#header-container{
-  /* background-image: url('../beerfoam.png'); */
+
+.chrome:before {
+  content: 'BEER';
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-image: -webkit-linear-gradient(-40deg, transparent 0%, transparent 40%, #fff 50%, transparent 60%, transparent 100%);
+  background-position:-680px 0;
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 0;
+  padding-right: 300px;
+  -webkit-animation-name: chrome_effect;
+  -webkit-animation-duration: 9s;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.dreams {
+  position: absolute;
+  margin: 0px;
+  font-family: 'Mr Dafoe', cursive;
+  font-size: 160px;
+  color: #F975F7 ;
+  transform:rotate(-15deg);
+  -ms-transform:rotate(-15deg); /* IE 9 */
+  -webkit-transform:rotate(-15deg); /* Safari and Chrome */
+  margin-left: 400px;
+  margin-top: -120px;
+  -webkit-text-stroke: 1px #f008b7;
+  -webkit-filter: drop-shadow(2px 2px 20px #f008b7);
+  z-index: 20;
+  margin-bottom: 20px
+}
+
+.windows .dreams {
+  -webkit-text-stroke: 4px #f008b7;
+}
+@-webkit-keyframes chrome_effect {
+  0% {background-position:-680px 0;}
+  10% {background-position:420px 0;}
+  100% {background-position:420px 0;}
+}
+
+
+body{
+  background-color: black;
+}
+/* #header-container{
+
   height: 200px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.header-text{ 
+.header-text{
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 75px;
   padding-top: 110px;
-  background-color: #4AB3F4;
+  background-image: -webkit-radial-gradient(rgb(0, 132, 255), rgb(46, 43, 247));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
-} 
+} */
 
-#addBeerButton{
+/* #addBeerButton{
+
   color: white;
   background-color:#4AB3F4;
   border: none;
   margin-bottom: 10px;
+} */
+#addBeerButton{
+
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  position: relative;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0.75em 1.75em;
+  border-radius: 5px;
+  display: inline-block;
+  color: #fff;
+  margin-top: 20px
+  /* Our gradient */
+  background: -webkit-gradient(linear, left top, right top, from(var(--purple)), to(var(--pink)));
+  background: linear-gradient(to right, var(--purple), var(--pink));
+}
+#addBeerButton::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -10px;
+  left: 5%;
+  height: 110%;
+  width: 90%;
+  opacity: 0.8;
+  border-radius: 5px;
+
+  /* Declaring our shadow color inherit from the parent (button) */
+  background: inherit;
+
+  /* Blurring the element for shadow effect */
+  -webkit-filter: blur(6px);
+  -moz-filter: blur(6px);
+  -o-filter: blur(6px);
+  -ms-filter: blur(6px);
+  filter: blur(6px);
+
+  /* Transition for the magic */
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+#addBeerButton:hover::after {
+  /* Changing blur effect */
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(4px);
+
+  /* And change the style properties */
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+
+#addBeerButton:hover{
+  background-position: right center;
 }
 #addBeerButton:focus{
   outline:none;
 }
 .deleteBeerButton{
-  border-radius: 80%;  
+  border-radius: 80%;
+}
+#beertable_filter{
+  display: flex;
+  justify-content: flex-end;
+}
+.form-control{
+  justify-self: right;
 }

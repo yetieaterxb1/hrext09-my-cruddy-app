@@ -4,17 +4,24 @@ $(document).ready(function(){
     $('#submitButton').click(handleSubmitForm)
     $('#exampleModal').keypress(handleEnterKey);
 
-      
+
     $('#beertable').DataTable({
-    "ordering": true // false to disable sorting (or any other option)
+    "ordering": true, // false to disable sorting (or any other option)
+    "scrollY": "1000px",
+    "scrollCollapse": true,
+    'paging':false
     });
-    $('.dataTables_length').addClass('bs-select');
+    $('.dataTables_length').addClass('bs-select')
+    var abbClone = $('<button type="button" id="addBeerButton" class="btn btn-primary col-col-sm-6 col-md-6 col-lg-4 " id="addBeerButton" data-toggle="modal" data-target="#exampleModal">Add a Beer</button>')
+    $('div.col-sm-12.col-md-6').first().append(abbClone)
+    // $('#beertable_wrapper').children('row').children()[0].append(aBBClone) 
+
 
 })
 
-    
-  
-  
+
+
+
   function renderBeers(container, beers){
     container.empty()
     beers.forEach(function(beer){
@@ -23,7 +30,8 @@ $(document).ready(function(){
         $('<td>').attr('class', 'name-cell').text(beer.name),
         $('<td>').attr('class', 'brewery-cell').text(beer.brewery),
         $('<td>').attr('class', 'rating-cell').text(beer.rating),
-        $('<td>').attr('class', 'rating-cell’).html($stars)
+
+
       ]
       container.append(
         $('<tr></tr>')
@@ -33,7 +41,7 @@ $(document).ready(function(){
       )
     })
   }
-  
+
   function handleSubmitForm(event){
     event.preventDefault()
     var beer = {
@@ -44,7 +52,7 @@ $(document).ready(function(){
     addBeer(beer.name, beer.brewery, beer.rating)
     renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
   }
-  
+
   function handleEnterKey(event){
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if(keycode == '13'){
@@ -52,7 +60,7 @@ $(document).ready(function(){
       $(this).find('#submitButton').click()
     }
   }
-  
+
   function handleDeleteBeerButton(event){
     event.preventDefault()
     var $beer = $(this).parent().siblings('td.name-cell')
@@ -61,7 +69,7 @@ $(document).ready(function(){
     deleteBeer(beerName)
     renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
   }
-  
+
   function handleUpdateBeer(event){
     var beer = $(this).children('td.name-cell').text()
     var brewery = $(this).children('td.brewery-cell').text()
@@ -77,7 +85,7 @@ $(document).ready(function(){
         updateBeer(beer, brewery, ratingEdit)
         renderBeers($('#beer-table-body'), sortDataBase('rating', 0, getDataBase('beers')))
         console.log(this)
-      }) 
+      })
     modalClone
       .find('#deleteBeerButton')
       .click(function(event){
